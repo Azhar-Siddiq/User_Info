@@ -1,0 +1,236 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen flex items-center justify-center p-4">
+    <div id="authContainer" class="w-full max-w-md bg-white rounded-2xl shadow-2xl p-8 border border-gray-200">
+        <h1 class="text-3xl font-bold text-center text-indigo-600 mb-6">User Registration</h1>
+        <form id="registrationForm" class="space-y-4">
+            <input 
+                type="text" 
+                id="nameInput" 
+                placeholder="Full Name" 
+                required 
+                class="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            >
+            <input 
+                type="email" 
+                id="emailInput" 
+                placeholder="Email Address" 
+                required 
+                class="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            >
+            <input 
+                type="password" 
+                id="passwordInput" 
+                placeholder="Password" 
+                required 
+                minlength="8"
+                class="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            >
+            <select 
+                id="genderInput" 
+                required 
+                class="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            >
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+            <input 
+                type="number" 
+                id="ageInput" 
+                placeholder="Age" 
+                required 
+                min="18" 
+                max="120"
+                class="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            >
+            <input 
+                type="text" 
+                id="locationInput" 
+                placeholder="Location" 
+                required 
+                class="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            >
+            <button 
+                type="submit" 
+                class="w-full bg-indigo-500 text-white p-3 rounded hover:bg-indigo-600 transition-colors"
+            >
+                Register
+            </button>
+        </form>
+    </div>
+
+    <script>
+        const registrationForm = document.getElementById('registrationForm');
+
+        registrationForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('nameInput').value.trim();
+            const email = document.getElementById('emailInput').value.trim();
+            const password = document.getElementById('passwordInput').value;
+            const gender = document.getElementById('genderInput').value;
+            const age = document.getElementById('ageInput').value;
+            const location = document.getElementById('locationInput').value;
+
+            // Password validation
+            const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+            if (!passwordRegex.test(password)) {
+                alert('Password must be at least 8 characters long and include letters and numbers');
+                return;
+            }
+
+            const user = {
+                name, email, password, gender, age, location
+            };
+
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            alert('Registration Successful!');
+            registrationForm.reset();
+        });
+    </script>
+</body>
+</html> -->
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 min-h-screen flex items-center justify-center p-4">
+    <div id="authContainer" class="w-full max-w-md bg-white rounded-2xl shadow-2xl p-8 border border-gray-200">
+        <h1 class="text-3xl font-bold text-center text-indigo-600 mb-6">User Registration</h1>
+        <form id="registrationForm" class="space-y-4">
+            <input 
+                type="text" 
+                id="nameInput" 
+                placeholder="Full Name" 
+                required 
+                class="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            >
+            <input 
+                type="email" 
+                id="emailInput" 
+                placeholder="Email Address" 
+                required 
+                class="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            >
+            <input 
+                type="password" 
+                id="passwordInput" 
+                placeholder="Password" 
+                required 
+                minlength="8"
+                class="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            >
+            <select 
+                id="genderInput" 
+                required 
+                class="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            >
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+            <input 
+                type="number" 
+                id="ageInput" 
+                placeholder="Age" 
+                required 
+                min="18" 
+                max="120"
+                class="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            >
+            <input 
+                type="text" 
+                id="locationInput" 
+                placeholder="Location" 
+                required 
+                class="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            >
+            <button 
+                type="submit" 
+                class="w-full bg-indigo-500 text-white p-3 rounded hover:bg-indigo-600 transition-colors"
+            >
+                Register
+            </button>
+        </form>
+    </div>
+
+    <script>
+        // Replace with your actual Supabase project URL and API key
+        const supabaseUrl = 'postgresql://postgres.opiuymvsmucqyptcjdjj:[YOUR-PASSWORD]@aws-0-us-east-2.pooler.supabase.com:6543/postgres';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9waXV5bXZzbXVjcXlwdGNqZGpqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzIyMDkwNzYsImV4cCI6MjA0Nzc4NTA3Nn0.R7qcz76p5oq38zhCEohJ7uEV2NScKNPr1WybRW3V8Pw';
+        const supabase = createClient(supabaseUrl, supabaseKey);
+
+        const registrationForm = document.getElementById('registrationForm');
+
+        registrationForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const name = document.getElementById('nameInput').value.trim();
+            const email = document.getElementById('emailInput').value.trim();
+            const password = document.getElementById('passwordInput').value;
+            const gender = document.getElementById('genderInput').value;
+            const age = document.getElementById('ageInput').value;
+            const location = document.getElementById('locationInput').value;
+
+            // Password validation
+            const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+            if (!passwordRegex.test(password)) {
+                alert('Password must be at least 8 characters long and include letters and numbers');
+                return;
+            }
+
+            try {
+                // First, sign up the user with Supabase Authentication
+                const { data: authData, error: authError } = await supabase.auth.signUp({
+                    email,
+                    password
+                });
+
+                if (authError) {
+                    throw authError;
+                }
+
+                // Then, store additional user details in a separate users table
+                const { data, error } = await supabase
+                    .from('users')
+                    .insert([{
+                        user_id: authData.user.id,
+                        name, 
+                        email, 
+                        gender, 
+                        age, 
+                        location,
+                        created_at: new Date().toISOString()
+                    }]);
+
+                if (error) {
+                    throw error;
+                }
+
+                alert('Registration Successful!');
+                registrationForm.reset();
+            } catch (error) {
+                console.error('Registration error:', error);
+                alert(`Registration failed: ${error.message}`);
+            }
+        });
+    </script>
+</body>
+</html>
